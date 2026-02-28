@@ -61,4 +61,56 @@ class PeopleRecord implements Comparable<PeopleRecord>{
     private static String safe(String s) {
         return (s == null) ? "" : s.trim();
     }
+    
+    /** Compare by given name, then by family name. */
+    @Override
+    public int compareTo(PeopleRecord other) {
+        if (other == null) return 1;
+        int c1 = this.givenName.compareToIgnoreCase(other.givenName);
+        if (c1 != 0) return c1;
+        return this.familyName.compareToIgnoreCase(other.familyName);
+    }
+    
+    /** True if both given and family match. */
+    public boolean sameName(String given, String family) {
+        return this.givenName.equalsIgnoreCase(safe(given))
+                && this.familyName.equalsIgnoreCase(safe(family));
+    }
+ // Getters
+    public String getGivenName() { return givenName; }
+    public String getFamilyName() { return familyName; }
+    public String getCompanyName() { return companyName; }
+    public String getAddress() { return address; }
+    public String getCity() { return city; }
+    public String getCounty() { return county; }
+    public String getState() { return state; }
+    public String getZip() { return zip; }
+    public String getPhone1() { return phone1; }
+    public String getPhone2() { return phone2; }
+    public String getEmail() { return email; }
+    public String getWeb() { return web; }
+    public String getBirthday() { return birthday; }
+    
+    @Override
+    public String toString() {
+        // short readable format for printing search results
+        return givenName + " " + familyName + " | " + email;
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof PeopleRecord)) return false;
+        PeopleRecord other = (PeopleRecord) o;
+        return givenName.equalsIgnoreCase(other.givenName)
+                && familyName.equalsIgnoreCase(other.familyName)
+                && email.equalsIgnoreCase(other.email)
+                && birthday.equalsIgnoreCase(other.birthday);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(givenName.toLowerCase(), familyName.toLowerCase(),
+                email.toLowerCase(), birthday.toLowerCase());
+    }
+
 }
