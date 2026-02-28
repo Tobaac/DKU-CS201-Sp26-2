@@ -39,4 +39,38 @@ class MyBST{
 		
 		return cur;
 	}
+	
+	// get info
+
+	public int[] getInfo() {
+		return new int[] {size, height(root)};
+	}
+	
+	// height definition: empty tree = 0, single node tree = 1
+	private int height(Node node) {
+		if (node == null) return 0;
+		
+		return 1+ Math.max(height(node.left), height(node.right));
+	}
+	
+	// search 
+    // Return all records with same given+family name (case-insensitive)
+	
+	public ArrayList<PeopleRecord> search(String given, String family){
+		ArrayList<PeopleRecord> res = new ArrayList<>();
+		searchInOrder(root, given,family, res);
+		return res;
+	}
+	
+	private void searchInOrder(Node node, String given, String family, ArrayList<PeopleRecord> res) {
+		if(node == null) return;
+		
+		searchInOrder(node.left, given, family,res);
+		
+		if(node.data.sameName(given, family)) {
+			res.add(node.data);
+		}
+		
+		searchInOrder(node.right, given,family,res);
+	}
 }
