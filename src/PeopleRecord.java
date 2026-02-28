@@ -1,3 +1,4 @@
+
 import java.util.Objects;
 
 class PeopleRecord implements Comparable<PeopleRecord>{
@@ -112,5 +113,4 @@ class PeopleRecord implements Comparable<PeopleRecord>{
         return Objects.hash(givenName.toLowerCase(), familyName.toLowerCase(),
                 email.toLowerCase(), birthday.toLowerCase());
     }
-
 }
